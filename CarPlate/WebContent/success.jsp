@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-success
+success <%=request.getAttribute("msg") %>
 </body>
 </html>
