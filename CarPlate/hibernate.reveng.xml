@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="license_plate_info" />
+	<table-filter match-name="person_info" />
+	<table-filter match-name="user" />
+	<table name="user">
+		<column name="id"></column>
+		<column name="username"></column>
+		<column name="password"></column>
+	</table>
+	<table name="license_plate_info">
+		<column name="id"></column>
+		<column name="picture"></column>
+	</table>
+	<table name="person_info">
+		<column name="id"></column>
+		<column name="user_id"></column>
+		<column name="name"></column>
+		<column name="age"></column>
+		<column name="address"></column>
+		<column name="telephone"></column>
+		<column name="lisence_plate_num"></column>
+		<column name="lisence_id"></column>
+	</table>
+</hibernate-reverse-engineering>
