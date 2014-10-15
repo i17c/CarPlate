@@ -15,17 +15,25 @@
 	<mvc:resources mapping="/js/**" location="/js/" /> 
 	
 	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		 destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
 		<property name="user" value="root"/>
 		<property name="password" value="123456"/>
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/car"/>
-		<property name="maxPoolSize" value="200"/>
-		<property name="minPoolSize" value="50"/>
-		<property name="initialPoolSize" value="1"/>
-		<property name="maxIdleTime" value="60"/>
-	</bean>
+		<property name="maxPoolSize" value="1000"/>
+		<property name="minPoolSize" value="500"/>
+		<property name="initialPoolSize" value="3"/>
+		<property name="maxIdleTime" value="100"/>
+	</bean> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"       
+        destroy-method="close">       
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />      
+    <property name="url" value="jdbc:mysql://localhost:3306/car" />      
+    <property name="username" value="root" />      
+    <property name="password" value="123456" />      
+	</bean>  
+	
 	<!-- 配置sessionfactory -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>

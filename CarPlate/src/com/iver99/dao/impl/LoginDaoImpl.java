@@ -1,5 +1,7 @@
 package com.iver99.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -12,18 +14,20 @@ public class LoginDaoImpl implements LoginDao{
 	
 	
 	@Override
-	public void checkLogin(String username, String password) {
+	public boolean checkLogin(String username, String password) {
 		// TODO Auto-generated method stub
-		//ApplicationContext ac = new FileSystemXmlApplicationContext("applicationContext.xml");
 		ApplicationContext ac=ApplicationContextFactory.getApplicationContext();
-		//HibernateTemplate hibernateTemplate=(HibernateTemplate)(ac.getBean("hibernateTemplateFactory"));
 		HibernateTemplate hibTemplate=new HibernateTemplate((SessionFactory)(ac.getBean("sessionFactory")));
 		User user=(User)(ac.getBean("user"));
 		user.setPassword(password);
 		user.setUsername(username);
-		//少一个属性赋值
-		//List list =hibernateTemplate.findByExample(user);
-		//System.out.println("Dao层checklogin.."+list);
+		
+		List list =hibTemplate.findByExample(user);
+		if(list.size()==0)
+			return false;
+		else
+			return true;
+					
 		
 	}
 	

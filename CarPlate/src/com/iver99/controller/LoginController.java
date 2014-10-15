@@ -47,13 +47,6 @@ public class LoginController extends AbstractController{
 		Boolean flag=true;
 		LoginService loginService=new LoginServiceImpl();
 		flag=loginService.verifyLogin(username, password);
-		//test
-		//ApplicationContext ac=ApplicationContextFactory.getApplicationContext();
-		//ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
-		//User user=(User)(ac.getBean("user"));
-		//System.out.println("....ac(controller)..."+ac);
-		
-		
 		
 		if(flag==true)
 		{	

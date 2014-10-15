@@ -15,9 +15,13 @@ public class LoginServiceImpl implements LoginService{
 		//ApplicationContext ac = new XmlWebApplicationContext(); 
 		ApplicationContext ac=ApplicationContextFactory.getApplicationContext();
 		System.out.println("....ac(service)..."+ac);
+		boolean flag=false;
 		LoginDao loginDao=(LoginDao)(ac.getBean("loginDao"));
-		loginDao.checkLogin(username, password);
-		return true;
+		flag=loginDao.checkLogin(username, password);
+		if(flag==false)
+			return false;
+		else
+			return true;
 	}
 
 }
