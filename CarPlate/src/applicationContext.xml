@@ -13,19 +13,9 @@
 	<mvc:resources mapping="/images/**" location="/images/" /> 
 	<mvc:resources mapping="/css/**" location="/css/" /> 
 	<mvc:resources mapping="/js/**" location="/js/" /> 
+	<mvc:resources mapping="/*.html" location="/" />
 	
-	<!-- 配置数据源 -->
-	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		 destroy-method="close">
-		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-		<property name="user" value="root"/>
-		<property name="password" value="123456"/>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/car"/>
-		<property name="maxPoolSize" value="1000"/>
-		<property name="minPoolSize" value="500"/>
-		<property name="initialPoolSize" value="3"/>
-		<property name="maxIdleTime" value="100"/>
-	</bean> -->
+	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"       
         destroy-method="close">       
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />      
@@ -58,6 +48,11 @@
 		<property name="mappings">
 			<props>
 				<prop key="/login.do">loginController</prop>
+				<prop key="/uploadPicture.do">uploadPictureController</prop>
+				<prop key="/gray.do">grayController</prop>
+				<prop key="/sobel.do">sobelController</prop>
+				<prop key="/binary.do">binaryController</prop>
+				<prop key="/originalPicture.do">originalPictureController</prop>
 			</props>
 		</property>
 	</bean>
@@ -72,9 +67,37 @@
 	
 	<!-- controller -->
 	<bean name="loginController" class="com.iver99.controller.LoginController">
-		<property name="successView" value="success"/>
-		<property name="failView" value="fail"/>
+		<property name="successView" value="album"/>
+		<property name="failView" value="index"/>
 	</bean>
+	<bean name="uploadPictureController" class="com.iver99.controller.UploadPictureController">
+		<property name="successView" value="showpicture"/>
+		<property name="failView" value="uploadPicture"/>
+	</bean>
+	<bean name="binaryController" class="com.iver99.controller.BinaryController">
+		<property name="successView" value="showpicture"/>
+		<property name="failView" value=""/>
+	</bean>
+	<bean name="grayController" class="com.iver99.controller.GrayController">
+		<property name="successView" value="showpicture"/>
+		<property name="failView" value=""/>
+	</bean>
+	<bean name="sobelController" class="com.iver99.controller.SobelController">
+		<property name="successView" value="showpicture"/>
+		<property name="failView" value=""/>
+	</bean>
+	<bean name="originalPictureController" class="com.iver99.controller.OriginalPictureController">
+		<property name="successView" value="showpicture"/>
+		<property name="failView" value=""/>
+	</bean> 
+	
+	<!-- 配置spring文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="utf-8" />
+	     <!--  <property name="maxUploadSize" value="3048576" /> -->
+	     <!--  <property name="maxInMemorySize" value="40960" /> -->
+	</bean>
+	<!-- 需要配合异常？ -->
 	
 	<!--  HibernateTemplate -->
 	<bean id="hibernateTemplateFactory" class="com.iver99.util.HibernateTemplateFactory">
@@ -82,19 +105,30 @@
 	</bean>
 	
 	<!-- Dao Bean -->
-	<bean id="loginDao" class="com.iver99.dao.impl.LoginDaoImpl">
-		<!-- <property name="sessionFactory" ref="dataSource"/> -->
+	<bean id="loginDao" class="com.iver99.dao.impl.LoginDaoImpl"/>
+	<bean id="uploadPictureDao" class="com.iver99.dao.impl.UploadPictureDaoImpl"/>
+	<bean id="grayDao" class="com.iver99.dao.impl.GrayDaoImpl"/>
+	<bean id="binaryDao" class="com.iver99.dao.impl.BinaryDaoImpl"/>
+	<bean id="sobelDao" class="com.iver99.dao.impl.SobelDaoImpl">
+		<constructor-arg  index="0" >
+			<value>50</value>
+		</constructor-arg>
 	</bean>
 	
 	
 	<!-- Service Bean -->
-	<bean id="loginService" class="com.iver99.biz.impl.LoginServiceImpl">
+	<bean id="loginService" class="com.iver99.biz.impl.LoginServiceImpl"/>
+	<bean id="uploadPictureService" class="com.iver99.biz.impl.UploadPictureServiceImpl"/>
+	<bean id="grayService" class="com.iver99.biz.impl.GrayServiceImpl"/>
+	<bean id="binaryService" class="com.iver99.biz.impl.BinaryServiceImpl"/>
+	<bean id="sobelService" class="com.iver99.biz.impl.SobelServiceImpl"/>
+		
 	
-	</bean>	
+	
 	
 	<!-- vo Bean -->
 	<bean id="user" class="com.iver99.vo.User"></bean>
-	<bean id="LicensePlateInfo" class="com.iver99.vo.LicensePlateInfo"></bean>
-	<bean id="PersonInfo" class="com.iver99.vo.PersonInfo"></bean>
+	<bean id="licensePlateInfo" class="com.iver99.vo.LicensePlateInfo"></bean>
+	<bean id="personInfo" class="com.iver99.vo.PersonInfo"></bean>
 	
 </beans>

@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>CarPlate</display-name>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>album.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -13,7 +13,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:applicationContext.xml</param-value>
-		</init-param> 
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
@@ -23,7 +23,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -31,6 +31,9 @@
 		</param-value>
 	</context-param>
 
-
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
 
 </web-app>
